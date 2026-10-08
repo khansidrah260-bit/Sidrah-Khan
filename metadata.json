@@ -1,0 +1,6 @@
+{
+  "name": "THE STYLE EDIT | Daily Fashion & Styling Magazine",
+  "description": "A premium fashion editorial publication covering trends, styling guides, street style, celebrity fashion, and long-form sartorial culture.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

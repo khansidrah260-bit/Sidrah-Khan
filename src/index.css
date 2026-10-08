@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  --color-ivory: #FDFBF7;
+  --color-cream: #F6F2EA;
+  --color-sand: #EFE9DE;
+  --color-wine: #6B1724;
+  --color-wine-dark: #4A0E17;
+  --color-wine-light: #8E2335;
+  --color-charcoal: #232120;
+  --color-ink: #111010;
+  --color-muted: #6E6864;
+  --color-border-subtle: #E6DFD5;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #FDFBF7;
+  color: #232120;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle magazine paper grain simulation */
+.paper-texture {
+  background-color: #FDFBF7;
+  background-image: radial-gradient(rgba(180, 165, 145, 0.15) 0.8px, transparent 0.8px);
+  background-size: 24px 24px;
+}
+
+/* Smooth text selection in editorial burgundy */
+::selection {
+  background-color: #6B1724;
+  color: #FDFBF7;
+}
+
+/* Editorial Drop Cap */
+.drop-cap::first-letter {
+  float: left;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 4.5rem;
+  line-height: 0.82;
+  padding-top: 4px;
+  padding-right: 12px;
+  padding-bottom: 2px;
+  color: #111010;
+  font-weight: 600;
+}
