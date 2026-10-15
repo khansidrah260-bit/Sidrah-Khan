@@ -2,9 +2,23 @@
 export const IMAGES = {
   hero: '/src/assets/images/hero_fashion_trends_2026_1791431297274.jpg',
   featuredLongform: '/src/assets/images/featured_longform_fashion_change_1791431317128.jpg',
-  streetStyle: '/src/assets/images/street_style_copenhagen_coat_1791431330291.jpg',
-  celebrity: '/src/assets/images/celebrity_red_carpet_evening_1791431342732.jpg',
-  beauty: '/src/assets/images/beauty_dewy_minimalist_glow_1791431355088.jpg',
+  streetParis: '/src/assets/images/street_style_copenhagen_coat_1791431330291.jpg',
+  celebrityGala: '/src/assets/images/celebrity_red_carpet_evening_1791431342732.jpg',
+  beautyDewy: '/src/assets/images/beauty_dewy_minimalist_glow_1791431355088.jpg',
+  accessories: '/src/assets/images/accessories_statement_jewellery_1792032749030.jpg',
+  streetTokyo: '/src/assets/images/street_tokyo_harajuku_1792032749776.jpg',
+  whiteShirt: '/src/assets/images/white_shirt_styling_editorial_1792032748936.jpg',
+  streetMilan: '/src/assets/images/street_milan_sprezzatura_1792032751534.jpg',
+  videoAtelier: '/src/assets/images/video_runway_atelier_backstage_1792032752088.jpg',
+  knitwearCashmere: '/src/assets/images/knitwear_cashmere_drape_1792032806892.jpg',
+  tailoringSuit: '/src/assets/images/tailoring_suit_relaxed_1792032808013.jpg',
+  denimWideLeg: '/src/assets/images/denim_wide_leg_editorial_1792032806742.jpg',
+  beautyWineLips: '/src/assets/images/beauty_blurred_wine_lips_1792032808453.jpg',
+  streetCopenhagen: '/src/assets/images/street_copenhagen_trench_1792032809035.jpg',
+  wardrobeCapsule: '/src/assets/images/wardrobe_capsule_rack_1792033086546.jpg',
+  statementJacket: '/src/assets/images/statement_jacket_sculptural_1792033087182.jpg',
+  celebrityAirport: '/src/assets/images/celebrity_airport_offduty_1792033162085.jpg',
+  barrelSilhouette: '/src/assets/images/barrel_leg_silhouette_1792033750577.jpg',
 };
 
 export type Category = 
@@ -40,7 +54,7 @@ export interface Article {
   tags: string[];
   pullQuote?: string;
   pullQuoteAttribution?: string;
-  content: string[]; // rich paragraphs or markdown sections
+  content: string[];
   sections?: {
     heading: string;
     body: string[];
@@ -185,7 +199,7 @@ export const ARTICLES: Article[] = [
     },
     publishedDate: 'October 6, 2026',
     readTime: '6 min read',
-    image: IMAGES.streetStyle,
+    image: IMAGES.knitwearCashmere,
     trending: true,
     tags: ['Trend Report', 'Autumn 2026', 'Wardrobe', 'Silhouettes'],
     content: [
@@ -207,7 +221,7 @@ export const ARTICLES: Article[] = [
     },
     publishedDate: 'October 5, 2026',
     readTime: '5 min read',
-    image: IMAGES.celebrity,
+    image: IMAGES.accessories,
     trending: true,
     tags: ['Accessories', 'Jewellery', 'Bags', 'Vintage'],
     content: [
@@ -229,7 +243,7 @@ export const ARTICLES: Article[] = [
     },
     publishedDate: 'October 4, 2026',
     readTime: '7 min read',
-    image: IMAGES.streetStyle,
+    image: IMAGES.tailoringSuit,
     trending: true,
     tags: ['Everyday Style', 'Capsule', 'Smart Casual', 'Wardrobe Formula'],
     content: [
@@ -251,7 +265,7 @@ export const ARTICLES: Article[] = [
     },
     publishedDate: 'October 3, 2026',
     readTime: '6 min read',
-    image: IMAGES.hero,
+    image: IMAGES.streetMilan,
     trending: true,
     tags: ['Tailoring', 'Suits', 'Menswear-Inspired', 'Power Dressing'],
     content: [
@@ -273,7 +287,7 @@ export const ARTICLES: Article[] = [
     },
     publishedDate: 'October 2, 2026',
     readTime: '5 min read',
-    image: IMAGES.celebrity,
+    image: IMAGES.celebrityGala,
     trending: true,
     tags: ['Colour Trends', 'Burgundy', 'Earth Tones', 'Styling Tips'],
     content: [
@@ -295,7 +309,7 @@ export const ARTICLES: Article[] = [
     },
     publishedDate: 'October 1, 2026',
     readTime: '8 min read',
-    image: IMAGES.streetStyle,
+    image: IMAGES.streetTokyo,
     trending: true,
     tags: ['Gen Z', 'Culture', 'Subculture', 'Vintage Sourcing'],
     content: [
@@ -317,7 +331,7 @@ export const ARTICLES: Article[] = [
     author: { name: 'Camille Laurent', role: 'Fashion Features Director', avatarInitials: 'CL' },
     publishedDate: 'Today · Oct 7, 2026',
     readTime: '4 min read',
-    image: IMAGES.hero,
+    image: IMAGES.barrelSilhouette,
     tags: ['Trend Alert', 'Trousers', 'Silhouette', 'Runway Update'],
     content: [
       'Every few seasons, a proportion shift occurs that initially divides critics before becoming the dominant silhouette of the era.',
@@ -336,7 +350,7 @@ export const ARTICLES: Article[] = [
     author: { name: 'Elena Rostova', role: 'Styling Specialist', avatarInitials: 'ER' },
     publishedDate: 'Today · Oct 7, 2026',
     readTime: '6 min read',
-    image: IMAGES.featuredLongform,
+    image: IMAGES.whiteShirt,
     tags: ['Style Guide', 'White Shirt', 'Styling Hacks', 'Capsule Wardrobe'],
     content: [
       'A crisp poplin shirt is often championed as the ultimate wardrobe staple, yet too often it is styled like corporate office default.',
@@ -355,7 +369,7 @@ export const ARTICLES: Article[] = [
     author: { name: 'Devon Park', role: 'Street Style Editor', avatarInitials: 'DP' },
     publishedDate: 'Today · Oct 7, 2026',
     readTime: '5 min read',
-    image: IMAGES.streetStyle,
+    image: IMAGES.streetParis,
     tags: ['Street Style', 'Paris', 'Tokyo', 'NYC', 'Real Outfits'],
     content: [
       'Our photographers in Paris and Tokyo report an undeniable shift: structured vintage blazers paired with utilitarian trousers, buttery leather bags carried under the arm, and an embrace of comfortable, sculptural footwear.',
@@ -374,7 +388,7 @@ export const ARTICLES: Article[] = [
     author: { name: 'Sloane Montgomery', role: 'Editor-in-Chief', avatarInitials: 'SM' },
     publishedDate: 'Today · Oct 7, 2026',
     readTime: '5 min read',
-    image: IMAGES.celebrity,
+    image: IMAGES.celebrityAirport,
     tags: ['Celebrity Style', 'Red Carpet', 'Off-Duty', 'Best Dressed'],
     content: [
       'This week’s standout celebrity moments eschewed loud theatrics in favour of impeccable execution. From sculpted satin eveningwear at the Rome Film Gala to effortless airport dressing in tailored camel coats and sunglasses, understated luxury took the crown.'
@@ -392,7 +406,7 @@ export const ARTICLES: Article[] = [
     author: { name: 'Clara Thorne', role: 'Beauty Director', avatarInitials: 'CT' },
     publishedDate: 'Today · Oct 7, 2026',
     readTime: '4 min read',
-    image: IMAGES.beauty,
+    image: IMAGES.beautyWineLips,
     tags: ['Beauty', 'Skincare', 'Makeup Trends', 'Minimal Beauty'],
     content: [
       'The era of 12-step heavy contouring is firmly in the rearview mirror. Across runway backstages and social feeds, the focus has shifted to skin vitality: soft satin finishes that look like authentic skin, blurred wine stains tapped onto the center of the lip, and naturally brushed brows.'
@@ -410,7 +424,7 @@ export const ARTICLES: Article[] = [
     author: { name: 'Camille Laurent', role: 'Fashion Features Director', avatarInitials: 'CL' },
     publishedDate: 'September 28, 2026',
     readTime: '11 min read',
-    image: IMAGES.featuredLongform,
+    image: IMAGES.wardrobeCapsule,
     tags: ['Wardrobe System', 'Capsule Wardrobe', 'Investment Pieces', 'Styling Philosophy'],
     content: [
       'Most people do not suffer from having too few clothes; they suffer from having too many disconnected garments that refuse to converse with one another.',
@@ -427,7 +441,7 @@ export const ARTICLES: Article[] = [
     author: { name: 'Elena Rostova', role: 'Styling Specialist', avatarInitials: 'ER' },
     publishedDate: 'September 25, 2026',
     readTime: '8 min read',
-    image: IMAGES.streetStyle,
+    image: IMAGES.streetCopenhagen,
     tags: ['Outfit Formulas', 'Everyday Uniform', 'Workwear', 'Effortless Style'],
     content: [
       'Having a set of reliable outfit formulas is not lazy; it is the hallmark of someone who has mastered their personal aesthetic.',
@@ -446,7 +460,7 @@ export const ARTICLES: Article[] = [
     author: { name: 'Devon Park', role: 'Street Style Editor', avatarInitials: 'DP' },
     publishedDate: 'September 22, 2026',
     readTime: '6 min read',
-    image: IMAGES.streetStyle,
+    image: IMAGES.denimWideLeg,
     tags: ['Denim', 'Wide Leg Jeans', 'Trouser Fit', 'Street Style'],
     content: [
       'Despite seasonal trend predictions threatening the return of restrictive denim, the relaxed wide-leg jean has proven to be an enduring modern classic.',
@@ -463,7 +477,7 @@ export const ARTICLES: Article[] = [
     author: { name: 'Camille Laurent', role: 'Fashion Features Director', avatarInitials: 'CL' },
     publishedDate: 'September 20, 2026',
     readTime: '7 min read',
-    image: IMAGES.hero,
+    image: IMAGES.statementJacket,
     tags: ['Jackets', 'Coats', 'Outerwear', 'Autumn Wardrobe'],
     content: [
       'In cold weather, your coat is not merely an accessory to your outfit—it IS your outfit to everyone you encounter on the street.',
@@ -482,7 +496,7 @@ export const ARTICLES: Article[] = [
     author: { name: 'Devon Park', role: 'Street Style Editor', avatarInitials: 'DP' },
     publishedDate: 'September 18, 2026',
     readTime: '9 min read',
-    image: IMAGES.streetStyle,
+    image: IMAGES.streetParis,
     tags: ['Street Style Report', 'Paris', 'Milan', 'Candid Fashion'],
     content: [
       'Street style has matured beyond theatrical look-at-me peacocking into a masterclass in everyday luxury.',
@@ -499,7 +513,7 @@ export const ARTICLES: Article[] = [
     author: { name: 'Sloane Montgomery', role: 'Editor-in-Chief', avatarInitials: 'SM' },
     publishedDate: 'September 15, 2026',
     readTime: '8 min read',
-    image: IMAGES.celebrity,
+    image: IMAGES.celebrityGala,
     tags: ['Celebrity Style', 'Paparazzi Culture', 'Off-Duty', 'High Street'],
     content: [
       'The modern celebrity street-style look is a carefully calibrated theatrical production disguised as casual nonchalance.',
@@ -518,7 +532,7 @@ export const ARTICLES: Article[] = [
     author: { name: 'Clara Thorne', role: 'Beauty Director', avatarInitials: 'CT' },
     publishedDate: 'September 12, 2026',
     readTime: '5 min read',
-    image: IMAGES.beauty,
+    image: IMAGES.beautyDewy,
     tags: ['Minimal Makeup', 'Dewy Skin', 'Beauty Trends', 'Skincare'],
     content: [
       'The modern editorial beauty philosophy starts with high-performance skincare and ends with minimal, targeted correction.',
@@ -545,7 +559,7 @@ export const VIDEOS: VideoItem[] = [
     duration: '14:20',
     category: 'Runway & Backstage',
     description: 'An intimate documentary look inside the Parisian ateliers as master tailors assemble hand-canvassed garments hours before showtime.',
-    thumbnail: IMAGES.hero,
+    thumbnail: IMAGES.videoAtelier,
     author: 'Camille Laurent & Film Team',
     timestampChapters: [
       { time: '00:00', title: 'The Call Sheet & Morning Atelier' },
@@ -560,7 +574,7 @@ export const VIDEOS: VideoItem[] = [
     duration: '08:45',
     category: 'Masterclass',
     description: 'Elena Rostova breaks down the subtle micro-folds that transform a basic rectangular shawl into an architectural silhouette.',
-    thumbnail: IMAGES.featuredLongform,
+    thumbnail: IMAGES.knitwearCashmere,
     author: 'Elena Rostova',
     timestampChapters: [
       { time: '00:00', title: 'Choosing the Right Yarn Gauge' },
@@ -575,7 +589,7 @@ export const VIDEOS: VideoItem[] = [
     duration: '11:15',
     category: 'Street Style Diary',
     description: 'Walking through the backstreets of Shibuya and Daikanyama capturing real youth style, archival vintage collectors, and denim craft.',
-    thumbnail: IMAGES.streetStyle,
+    thumbnail: IMAGES.streetTokyo,
     author: 'Devon Park',
     timestampChapters: [
       { time: '00:00', title: 'Morning Coffee in Daikanyama' },
@@ -590,7 +604,7 @@ export const VIDEOS: VideoItem[] = [
     duration: '06:30',
     category: 'Beauty Guide',
     description: 'Clara Thorne demonstrates skin prep, lightweight tint application, and the blurred burgundy lip signature of Autumn 2026.',
-    thumbnail: IMAGES.beauty,
+    thumbnail: IMAGES.beautyWineLips,
     author: 'Clara Thorne',
     timestampChapters: [
       { time: '00:00', title: 'Glow Prep & Lymphatic Massage' },

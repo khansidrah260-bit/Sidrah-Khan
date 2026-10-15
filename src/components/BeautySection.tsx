@@ -42,7 +42,7 @@ export const BeautySection: React.FC<BeautySectionProps> = ({
               onClick={() => onSelectArticle(beautyArticles[0]?.id || 'art-bty-01')}
             >
               <img
-                src={IMAGES.beauty}
+                src={IMAGES.beautyDewy}
                 alt="Dewy Minimalist Beauty Editorial"
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"

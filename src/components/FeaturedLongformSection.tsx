@@ -167,7 +167,7 @@ export const FeaturedLongformSection: React.FC<FeaturedLongformSectionProps> = (
           <div className="my-10 bg-[#E8E2D7] border border-[#DDD5C7] overflow-hidden">
             <div className="aspect-[16/9] w-full">
               <img
-                src={IMAGES.streetStyle}
+                src={IMAGES.tailoringSuit}
                 alt="Streetwear meets Savile Row"
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover"
