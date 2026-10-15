@@ -16,13 +16,15 @@ import { BookmarksDrawer } from './components/BookmarksDrawer';
 import { AboutView } from './components/AboutView';
 import { Footer } from './components/Footer';
 import { ARTICLES, Article } from './data/articles';
-import { Check, Sparkles } from 'lucide-react';
+import { parseCurrentRoute, getRouteUrl, navigateToRoute } from './utils/routes';
+import { Check } from 'lucide-react';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<string>('Home');
   const [selectedArticleId, setSelectedArticleId] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [bookmarksOpen, setBookmarksOpen] = useState(false);
+  const [openInNewTab, setOpenInNewTab] = useState<boolean>(true);
   const [bookmarkedIds, setBookmarkedIds] = useState<string[]>(() => {
     try {
       const saved = localStorage.getItem('style_edit_bookmarks');
@@ -33,6 +35,30 @@ export default function App() {
   });
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
+  // Initialize view from URL on mount & listen to browser popstate (Back/Forward)
+  useEffect(() => {
+    const syncRouteFromUrl = () => {
+      const route = parseCurrentRoute();
+      if (route.articleSlug) {
+        const found = ARTICLES.find((a) => a.slug === route.articleSlug);
+        if (found) {
+          setSelectedArticleId(found.id);
+          document.title = `${found.title} | THE STYLE EDIT`;
+          return;
+        }
+      }
+      setSelectedArticleId(null);
+      setCurrentView(route.view);
+      document.title = route.view === 'Home'
+        ? 'THE STYLE EDIT | Daily Fashion & Styling Magazine'
+        : `${route.view} | THE STYLE EDIT`;
+    };
+
+    syncRouteFromUrl();
+    window.addEventListener('popstate', syncRouteFromUrl);
+    return () => window.removeEventListener('popstate', syncRouteFromUrl);
+  }, []);
+
   // Sync bookmarks with localStorage
   useEffect(() => {
     try {
@@ -42,14 +68,19 @@ export default function App() {
     }
   }, [bookmarkedIds]);
 
-  // Handle article selection
+  // Handle article selection with clean URL update
   const handleSelectArticle = (articleId: string) => {
+    const article = ARTICLES.find((a) => a.id === articleId);
     setSelectedArticleId(articleId);
+    if (article) {
+      navigateToRoute(getRouteUrl(article.slug, true), article.title);
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleBackFromArticle = () => {
     setSelectedArticleId(null);
+    navigateToRoute(getRouteUrl(currentView), currentView);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -63,11 +94,12 @@ export default function App() {
   };
 
   const handleShare = (article: Article) => {
+    const fullUrl = `${window.location.origin}${getRouteUrl(article.slug, true)}`;
     if (navigator.clipboard) {
-      navigator.clipboard.writeText(window.location.href);
-      showToast(`Link to “${article.title.slice(0, 32)}...” copied to clipboard`);
+      navigator.clipboard.writeText(fullUrl);
+      showToast(`Unique URL copied: ${fullUrl}`);
     } else {
-      showToast('Article link copied to clipboard');
+      showToast('Article URL copied to clipboard');
     }
   };
 
@@ -75,12 +107,13 @@ export default function App() {
     setToastMessage(msg);
     setTimeout(() => {
       setToastMessage(null);
-    }, 3200);
+    }, 3500);
   };
 
   const handleCategoryNav = (cat: string) => {
     setSelectedArticleId(null);
     setCurrentView(cat);
+    navigateToRoute(getRouteUrl(cat), cat);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -114,6 +147,8 @@ export default function App() {
         onOpenBookmarks={() => setBookmarksOpen(true)}
         bookmarkedCount={bookmarkedIds.length}
         onSelectArticle={handleSelectArticle}
+        openInNewTab={openInNewTab}
+        onToggleNewTab={() => setOpenInNewTab(!openInNewTab)}
       />
 
       {/* Content Rendering Body */}
@@ -136,7 +171,7 @@ export default function App() {
           <div>
             <div className="bg-[#F7F3EB] py-10 px-4 sm:px-8 border-b border-[#E8DECf] text-center">
               <span className="text-xs uppercase tracking-[0.25em] text-[#6B1724] font-semibold">
-                CURATED FORECAST
+                CURATED FORECAST · /trending
               </span>
               <h1 className="font-serif text-4xl sm:text-5xl text-[#111010] mt-2 mb-3">
                 TRENDING NOW
@@ -161,7 +196,7 @@ export default function App() {
           <div>
             <div className="bg-[#F7F3EB] py-10 px-4 sm:px-8 border-b border-[#E8DECf] text-center">
               <span className="text-xs uppercase tracking-[0.25em] text-[#6B1724] font-semibold">
-                SARTORIAL ARCHITECTURE
+                SARTORIAL ARCHITECTURE · /style-guides
               </span>
               <h1 className="font-serif text-4xl sm:text-5xl text-[#111010] mt-2 mb-3">
                 STYLE GUIDES & FORMULAS
@@ -180,7 +215,7 @@ export default function App() {
           <div>
             <div className="bg-[#F7F3EB] py-10 px-4 sm:px-8 border-b border-[#E8DECf] text-center">
               <span className="text-xs uppercase tracking-[0.25em] text-[#6B1724] font-semibold">
-                DEPARTMENT INVENTORY
+                DEPARTMENT INVENTORY · /clothing
               </span>
               <h1 className="font-serif text-4xl sm:text-5xl text-[#111010] mt-2 mb-3">
                 CLOTHING & SILHOUETTES
@@ -199,7 +234,7 @@ export default function App() {
           <div>
             <div className="bg-[#F7F3EB] py-10 px-4 sm:px-8 border-b border-[#E8DECf] text-center">
               <span className="text-xs uppercase tracking-[0.25em] text-[#6B1724] font-semibold">
-                GLOBAL SIDEWALK ARCHIVES
+                GLOBAL SIDEWALK ARCHIVES · /street-style
               </span>
               <h1 className="font-serif text-4xl sm:text-5xl text-[#111010] mt-2 mb-3">
                 STREET STYLE DISPATCH
@@ -218,7 +253,7 @@ export default function App() {
           <div>
             <div className="bg-[#F7F3EB] py-10 px-4 sm:px-8 border-b border-[#E8DECf] text-center">
               <span className="text-xs uppercase tracking-[0.25em] text-[#6B1724] font-semibold">
-                RED CARPET & OFF-DUTY
+                RED CARPET & OFF-DUTY · /celebrity-style
               </span>
               <h1 className="font-serif text-4xl sm:text-5xl text-[#111010] mt-2 mb-3">
                 CELEBRITY STYLE
@@ -237,7 +272,7 @@ export default function App() {
           <div>
             <div className="bg-[#F7F3EB] py-10 px-4 sm:px-8 border-b border-[#E8DECf] text-center">
               <span className="text-xs uppercase tracking-[0.25em] text-[#6B1724] font-semibold">
-                BACKSTAGE & DERMATOLOGY
+                BACKSTAGE & DERMATOLOGY · /beauty
               </span>
               <h1 className="font-serif text-4xl sm:text-5xl text-[#111010] mt-2 mb-3">
                 BEAUTY & SKINCARE
@@ -254,6 +289,17 @@ export default function App() {
         ) : currentView === 'Videos' ? (
           /* Videos Dedicated Page */
           <div>
+            <div className="bg-[#1C1A19] text-[#FDFBF7] py-10 px-4 sm:px-8 border-b border-[#2F2C2A] text-center">
+              <span className="text-xs uppercase tracking-[0.25em] text-[#C49B71] font-semibold">
+                CINEMA ARCHIVES · /videos
+              </span>
+              <h1 className="font-serif text-4xl sm:text-5xl mt-2 mb-3 text-white">
+                WATCH THE EDIT
+              </h1>
+              <p className="text-sm font-sans text-[#A8A29E] max-w-lg mx-auto">
+                Documentary mini-features, runway ateliers, and styling masterclasses recorded in 4K resolution.
+              </p>
+            </div>
             <WatchTheEditSection />
           </div>
         ) : (
@@ -285,7 +331,7 @@ export default function App() {
               onShare={handleShare}
             />
 
-            {/* 4. Today in Fashion (Daily Updates: Trend Alert, Style Guide, Street Style, Celebrity Style, Beauty) */}
+            {/* 4. Today in Fashion (Daily Updates) */}
             <TodayInFashionSection
               articles={todayArticles}
               onSelectArticle={handleSelectArticle}
@@ -321,7 +367,7 @@ export default function App() {
               onSelectArticle={handleSelectArticle}
             />
 
-            {/* 10. Watch The Edit (Dark Cinematic Video Showcase) */}
+            {/* 10. Watch The Edit */}
             <WatchTheEditSection />
           </>
         )}

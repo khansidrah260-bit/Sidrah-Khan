@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Search, Bookmark, Menu, X, ArrowUpRight } from 'lucide-react';
-import { Category } from '../data/articles';
+import { Search, Bookmark, Menu, X, ArrowUpRight, ExternalLink } from 'lucide-react';
+import { getRouteUrl } from '../utils/routes';
 
 interface HeaderProps {
   currentCategory: string;
@@ -9,6 +9,8 @@ interface HeaderProps {
   onOpenBookmarks: () => void;
   bookmarkedCount: number;
   onSelectArticle: (articleId: string) => void;
+  openInNewTab?: boolean;
+  onToggleNewTab?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -17,25 +19,30 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenSearch,
   onOpenBookmarks,
   bookmarkedCount,
+  openInNewTab = true,
+  onToggleNewTab,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const navItems: { label: string; value: string }[] = [
-    { label: 'HOME', value: 'Home' },
-    { label: 'TRENDING', value: 'Trending' },
-    { label: 'STYLE GUIDES', value: 'Style Guides' },
-    { label: 'CLOTHING', value: 'Clothing' },
-    { label: 'STREET STYLE', value: 'Street Style' },
-    { label: 'CELEBRITY STYLE', value: 'Celebrity Style' },
-    { label: 'BEAUTY', value: 'Beauty' },
-    { label: 'VIDEOS', value: 'Videos' },
-    { label: 'ABOUT', value: 'About' },
+  const navItems: { label: string; value: string; slug: string }[] = [
+    { label: 'HOME', value: 'Home', slug: '/' },
+    { label: 'TRENDING', value: 'Trending', slug: '/trending' },
+    { label: 'STYLE GUIDES', value: 'Style Guides', slug: '/style-guides' },
+    { label: 'CLOTHING', value: 'Clothing', slug: '/clothing' },
+    { label: 'STREET STYLE', value: 'Street Style', slug: '/street-style' },
+    { label: 'CELEBRITY STYLE', value: 'Celebrity Style', slug: '/celebrity-style' },
+    { label: 'BEAUTY', value: 'Beauty', slug: '/beauty' },
+    { label: 'VIDEOS', value: 'Videos', slug: '/videos' },
+    { label: 'ABOUT', value: 'About', slug: '/about' },
   ];
 
-  const handleNavClick = (value: string) => {
-    onSelectCategory(value);
-    setMobileMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, value: string) => {
+    if (!openInNewTab) {
+      e.preventDefault();
+      onSelectCategory(value);
+      setMobileMenuOpen(false);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   return (
@@ -50,10 +57,22 @@ export const Header: React.FC<HeaderProps> = ({
             <span aria-hidden="true">·</span>
             <span>Paris · London · New York</span>
           </div>
+
           <div className="mx-auto sm:mx-0 font-medium tracking-[0.22em] text-[#6B1724]">
             WHAT’S WORTH WEARING NOW
           </div>
+
           <div className="hidden sm:flex items-center gap-3">
+            {onToggleNewTab && (
+              <button
+                onClick={onToggleNewTab}
+                className="flex items-center gap-1 text-[10px] text-[#524D48] hover:text-[#111010] bg-[#F3EDE2] px-2 py-0.5 rounded border border-[#DFD6C8] transition-colors"
+                title="Toggle whether navigation classifications open in a new tab"
+              >
+                <ExternalLink className="w-2.5 h-2.5 text-[#6B1724]" />
+                <span>NEW TAB: {openInNewTab ? 'ON' : 'OFF'}</span>
+              </button>
+            )}
             <span>Updated 20 min ago</span>
           </div>
         </div>
@@ -81,35 +100,47 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Brand Wordmark (Editorial Serif, high prestige) */}
         <div className="text-center lg:text-left flex-1 lg:flex-initial">
-          <button
-            onClick={() => handleNavClick('Home')}
+          <a
+            href="/"
+            onClick={(e) => handleLinkClick(e, 'Home')}
+            target={openInNewTab ? '_blank' : undefined}
+            rel="noopener noreferrer"
             className="group inline-flex flex-col items-center lg:items-start text-left focus:outline-none"
+            title="The Style Edit - Front Page"
           >
             <span className="font-serif text-2xl sm:text-3xl lg:text-4xl font-normal tracking-[0.08em] text-[#111010] group-hover:text-[#6B1724] transition-colors leading-none">
               THE STYLE EDIT
             </span>
-          </button>
+          </a>
         </div>
 
-        {/* Desktop Navigation Links */}
+        {/* Desktop Navigation Links with Unique SEO URLs & New Tab target */}
         <nav className="hidden lg:flex items-center space-x-6 xl:space-x-7 text-[12px] font-sans font-medium tracking-[0.16em] text-[#3E3A37]">
           {navItems.map((item) => {
             const isActive = currentCategory === item.value;
+            const url = getRouteUrl(item.value);
             return (
-              <button
+              <a
                 key={item.value}
-                onClick={() => handleNavClick(item.value)}
-                className={`transition-colors relative py-1 focus:outline-none ${
+                href={url}
+                target={openInNewTab ? '_blank' : undefined}
+                rel="noopener noreferrer"
+                onClick={(e) => handleLinkClick(e, item.value)}
+                title={`Open ${item.label} (${url}) ${openInNewTab ? 'in a new tab' : ''}`}
+                className={`transition-colors relative py-1 focus:outline-none inline-flex items-center gap-1 group ${
                   isActive
                     ? 'text-[#6B1724] font-semibold'
                     : 'text-[#4A4541] hover:text-[#111010]'
                 }`}
               >
-                {item.label}
+                <span>{item.label}</span>
+                {openInNewTab && (
+                  <ArrowUpRight className="w-2.5 h-2.5 opacity-40 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-[#6B1724]" />
+                )}
                 {isActive && (
                   <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[#6B1724]" />
                 )}
-              </button>
+              </a>
             );
           })}
         </nav>
@@ -148,23 +179,30 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="flex flex-col space-y-4">
             {navItems.map((item) => {
               const isActive = currentCategory === item.value;
+              const url = getRouteUrl(item.value);
               return (
-                <button
+                <a
                   key={item.value}
-                  onClick={() => handleNavClick(item.value)}
+                  href={url}
+                  target={openInNewTab ? '_blank' : undefined}
+                  rel="noopener noreferrer"
+                  onClick={(e) => handleLinkClick(e, item.value)}
                   className={`text-left text-sm font-sans tracking-[0.16em] py-2 flex items-center justify-between border-b border-[#F2ECE1] ${
                     isActive ? 'text-[#6B1724] font-semibold' : 'text-[#3E3A37]'
                   }`}
                 >
-                  <span>{item.label}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-[#9C948B]" />
-                </button>
+                  <div className="flex items-center gap-2">
+                    <span>{item.label}</span>
+                    <span className="text-[10px] text-[#9C948B] font-mono lowercase">({url})</span>
+                  </div>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-[#6B1724]" />
+                </a>
               );
             })}
           </div>
 
           <div className="mt-6 pt-4 border-t border-[#E6DFD5] flex items-center justify-between text-xs text-[#78716C]">
-            <span>Daily Editorial Dispatch</span>
+            <span>Daily Editorial Wire</span>
             <button
               onClick={() => {
                 setMobileMenuOpen(false);

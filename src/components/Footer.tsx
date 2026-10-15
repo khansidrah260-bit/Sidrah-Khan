@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ArrowRight, Check, Heart, Mail } from 'lucide-react';
+import { Check } from 'lucide-react';
+import { getRouteUrl } from '../utils/routes';
 
 interface FooterProps {
   onSelectCategory: (cat: string) => void;
@@ -81,29 +82,29 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory }) => {
             </h4>
             <ul className="space-y-2.5 text-xs text-[#A8A29E]">
               <li>
-                <button onClick={() => onSelectCategory('Trending')} className="hover:text-white transition-colors">
+                <a href={getRouteUrl('Trending')} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                   Trending Forecasts
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onSelectCategory('Style Guides')} className="hover:text-white transition-colors">
+                <a href={getRouteUrl('Style Guides')} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                   Wardrobe Architecture
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onSelectCategory('Clothing')} className="hover:text-white transition-colors">
+                <a href={getRouteUrl('Clothing')} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                   Clothing & Silhouettes
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onSelectCategory('Street Style')} className="hover:text-white transition-colors">
+                <a href={getRouteUrl('Street Style')} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                   Global Street Style
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onSelectCategory('Celebrity Style')} className="hover:text-white transition-colors">
+                <a href={getRouteUrl('Celebrity Style')} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                   Red Carpet Index
-                </button>
+                </a>
               </li>
             </ul>
           </div>
@@ -115,29 +116,29 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory }) => {
             </h4>
             <ul className="space-y-2.5 text-xs text-[#A8A29E]">
               <li>
-                <button onClick={() => onSelectCategory('Beauty')} className="hover:text-white transition-colors">
+                <a href={getRouteUrl('Beauty')} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                   Backstage Beauty Desk
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onSelectCategory('Videos')} className="hover:text-white transition-colors">
+                <a href={getRouteUrl('Videos')} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                   Watch The Edit (Documentaries)
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onSelectCategory('Culture')} className="hover:text-white transition-colors">
+                <a href={getRouteUrl('Culture')} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                   Long-Form Essays
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onSelectCategory('Style Guides')} className="hover:text-white transition-colors">
+                <a href={getRouteUrl('Style Guides')} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                   The Capsule 18 Formula
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onSelectCategory('About')} className="hover:text-white transition-colors">
+                <a href={getRouteUrl('About')} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                   Archival Research Vault
-                </button>
+                </a>
               </li>
             </ul>
           </div>
@@ -149,29 +150,29 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory }) => {
             </h4>
             <ul className="space-y-2.5 text-xs text-[#A8A29E]">
               <li>
-                <button onClick={() => onSelectCategory('About')} className="hover:text-white transition-colors">
+                <a href={getRouteUrl('About')} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                   About The Publication
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onSelectCategory('About')} className="hover:text-white transition-colors">
+                <a href={getRouteUrl('About')} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                   Letters to the Editor
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onSelectCategory('About')} className="hover:text-white transition-colors">
+                <a href={getRouteUrl('About')} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                   Curatorial Standards
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onSelectCategory('About')} className="hover:text-white transition-colors">
+                <a href={getRouteUrl('About')} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                   Syndication & Rights
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onSelectCategory('About')} className="hover:text-white transition-colors">
+                <a href={getRouteUrl('About')} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                   Press Inquiries
-                </button>
+                </a>
               </li>
             </ul>
           </div>
@@ -183,17 +184,17 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory }) => {
             © 2026 THE STYLE EDIT. All rights reserved. No reproduction without express editorial permission.
           </div>
           <div className="flex items-center gap-4">
-            <button onClick={() => onSelectCategory('About')} className="hover:text-[#A8A29E] transition-colors">
+            <a href={getRouteUrl('About')} target="_blank" rel="noopener noreferrer" className="hover:text-[#A8A29E] transition-colors">
               Privacy Charter
-            </button>
+            </a>
             <span aria-hidden="true">·</span>
-            <button onClick={() => onSelectCategory('About')} className="hover:text-[#A8A29E] transition-colors">
+            <a href={getRouteUrl('About')} target="_blank" rel="noopener noreferrer" className="hover:text-[#A8A29E] transition-colors">
               Journalistic Ethics
-            </button>
+            </a>
             <span aria-hidden="true">·</span>
-            <button onClick={() => onSelectCategory('About')} className="hover:text-[#A8A29E] transition-colors">
+            <a href={getRouteUrl('About')} target="_blank" rel="noopener noreferrer" className="hover:text-[#A8A29E] transition-colors">
               Masthead Credits
-            </button>
+            </a>
           </div>
         </div>
       </div>
