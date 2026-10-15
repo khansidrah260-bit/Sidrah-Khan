@@ -19,6 +19,13 @@ export const IMAGES = {
   statementJacket: '/src/assets/images/statement_jacket_sculptural_1792033087182.jpg',
   celebrityAirport: '/src/assets/images/celebrity_airport_offduty_1792033162085.jpg',
   barrelSilhouette: '/src/assets/images/barrel_leg_silhouette_1792033750577.jpg',
+  streetParisMilan: '/src/assets/images/street_style_paris_milan_1792046417710.jpg',
+  celebrityOffDuty: '/src/assets/images/celebrity_offduty_street_1792046453173.jpg',
+  beautySkinMinimalism: '/src/assets/images/beauty_skin_minimalism_1792046648581.jpg',
+  runwayCouture: '/src/assets/images/runway_couture_atelier_1792046389365.jpg',
+  videoScarf: '/src/assets/images/video_scarf_styling_1792046485256.jpg',
+  videoTokyo: '/src/assets/images/video_tokyo_street_1792046526114.jpg',
+  videoBeautyCloud: '/src/assets/images/video_beauty_cloudskin_1792046574956.jpg',
 };
 
 export type Category = 

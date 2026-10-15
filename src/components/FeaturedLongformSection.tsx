@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { ArrowRight, Bookmark, BookOpen, Clock, Quote, Share2, Type } from 'lucide-react';
+import { ArrowRight, Bookmark, BookOpen, Quote, Share2, Type } from 'lucide-react';
 import { Article, IMAGES } from '../data/articles';
+import { getRouteUrl } from '../utils/routes';
 
 interface FeaturedLongformSectionProps {
   article: Article;
@@ -12,12 +13,12 @@ interface FeaturedLongformSectionProps {
 
 export const FeaturedLongformSection: React.FC<FeaturedLongformSectionProps> = ({
   article,
-  onOpenFullArticle,
   isBookmarked,
   onToggleBookmark,
   onShare,
 }) => {
   const [fontSize, setFontSize] = useState<'normal' | 'large'>('normal');
+  const articleUrl = getRouteUrl(article.slug, true);
 
   return (
     <section className="py-16 sm:py-24 border-b border-[#E6DFD5] bg-[#FAF6F0] relative">
@@ -30,9 +31,17 @@ export const FeaturedLongformSection: React.FC<FeaturedLongformSectionProps> = (
             <span>SPECIAL DISPATCH</span>
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-normal text-[#111010] leading-[1.08] tracking-tight mb-5 text-balance">
-            HOW FASHION IS CHANGING IN 2026
-          </h2>
+          <a
+            href={articleUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group block"
+            title={`Open “${article.title}” in a new tab`}
+          >
+            <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-normal text-[#111010] group-hover:text-[#6B1724] transition-colors leading-[1.08] tracking-tight mb-5 text-balance">
+              HOW FASHION IS CHANGING IN 2026
+            </h2>
+          </a>
 
           <p className="font-serif italic text-lg sm:text-xl text-[#5A5550] leading-relaxed max-w-2xl mx-auto mb-6">
             The Algorithmic Shift, Archival Obsession, and the Rebirth of Tactile Identity in a Post-Trend World.
@@ -90,13 +99,19 @@ export const FeaturedLongformSection: React.FC<FeaturedLongformSectionProps> = (
         </div>
 
         {/* Lead Graphic Visual */}
-        <div className="mb-12 bg-[#E7E0D3] border border-[#DCD3C4]">
+        <a
+          href={articleUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block mb-12 bg-[#E7E0D3] border border-[#DCD3C4] group"
+          title={`Open “${article.title}” in a new tab`}
+        >
           <div className="aspect-[16/9] w-full overflow-hidden">
             <img
               src={article.image}
               alt="How Fashion is Changing in 2026"
               referrerPolicy="no-referrer"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500"
             />
           </div>
           <div className="p-3 bg-[#EFE8DD] text-[11px] font-sans text-[#78716C] flex items-center justify-between">
@@ -104,10 +119,10 @@ export const FeaturedLongformSection: React.FC<FeaturedLongformSectionProps> = (
               Figure 1.0 — Architecture and Sartorial Expression: Models in draped gabardine and textured knitwear.
             </span>
             <span className="text-[10px] uppercase tracking-wider text-[#6B1724] font-medium hidden sm:inline">
-              Archive Studio Paris
+              Archive Studio Paris ↗
             </span>
           </div>
-        </div>
+        </a>
 
         {/* Long-Form Essay Prose Body */}
         <div
@@ -192,7 +207,7 @@ export const FeaturedLongformSection: React.FC<FeaturedLongformSectionProps> = (
             </div>
           )}
 
-          {/* Full Long-Form Essay Expansion Banner */}
+          {/* Full Long-Form Essay Expansion Banner (Opens in New Tab) */}
           <div className="mt-12 p-8 bg-[#111010] text-[#FDFBF7] text-center shadow-lg border border-[#232120]">
             <span className="text-[11px] font-sans tracking-[0.24em] uppercase text-[#E8D4B0] block mb-2 font-medium">
               COMPLETE 14-PAGE EDITORIAL DOSSIER
@@ -203,13 +218,15 @@ export const FeaturedLongformSection: React.FC<FeaturedLongformSectionProps> = (
             <p className="text-xs sm:text-sm text-[#A8A29E] font-sans max-w-xl mx-auto mb-6">
               Includes footnotes on archival garment sourcing, the TikTok algorithm timeline, and interviews with 8 independent creative directors in Paris and Tokyo.
             </p>
-            <button
-              onClick={() => onOpenFullArticle(article.id)}
+            <a
+              href={articleUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-8 py-3.5 bg-[#6B1724] hover:bg-[#851C2C] text-white text-xs font-sans tracking-[0.2em] uppercase font-medium transition-colors"
             >
               <span>CONTINUE READING FULL ESSAY</span>
               <ArrowRight className="w-4 h-4" />
-            </button>
+            </a>
           </div>
         </div>
       </div>

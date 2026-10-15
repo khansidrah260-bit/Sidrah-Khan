@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowUpRight, Bookmark, Clock } from 'lucide-react';
 import { Article } from '../data/articles';
+import { getRouteUrl } from '../utils/routes';
 
 interface TrendingSectionProps {
   articles: Article[];
@@ -11,7 +12,6 @@ interface TrendingSectionProps {
 
 export const TrendingSection: React.FC<TrendingSectionProps> = ({
   articles,
-  onSelectArticle,
   bookmarkedIds,
   onToggleBookmark,
 }) => {
@@ -37,16 +37,21 @@ export const TrendingSection: React.FC<TrendingSectionProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
           {articles.map((item, index) => {
             const isSaved = bookmarkedIds.includes(item.id);
+            const articleUrl = getRouteUrl(item.slug, true);
+
             return (
               <article
                 key={item.id}
                 className="group flex flex-col justify-between bg-[#F8F5EE] border border-[#E9E2D6] p-4 hover:border-[#232120] hover:shadow-md transition-all duration-300"
               >
                 <div>
-                  {/* Image Container with subtle ratio and smooth hover zoom */}
-                  <div
-                    onClick={() => onSelectArticle(item.id)}
-                    className="relative aspect-[4/3] w-full overflow-hidden bg-[#ECE5DA] cursor-pointer mb-4"
+                  {/* Image Container with subtle ratio and smooth hover zoom (Opens in New Tab) */}
+                  <a
+                    href={articleUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative aspect-[4/3] w-full overflow-hidden bg-[#ECE5DA] block mb-4"
+                    title={`Open “${item.title}” in a new tab`}
                   >
                     <img
                       src={item.image}
@@ -61,17 +66,19 @@ export const TrendingSection: React.FC<TrendingSectionProps> = ({
                     {/* Bookmark quick button */}
                     <button
                       onClick={(e) => {
+                        e.preventDefault();
                         e.stopPropagation();
                         onToggleBookmark(item.id);
                       }}
                       className="absolute top-3 right-3 p-1.5 bg-[#FDFBF7]/90 rounded-full hover:bg-white text-[#232120] transition-colors"
                       aria-label="Save story"
+                      title="Save story"
                     >
                       <Bookmark
                         className={`w-3.5 h-3.5 ${isSaved ? 'fill-[#6B1724] text-[#6B1724]' : ''}`}
                       />
                     </button>
-                  </div>
+                  </a>
 
                   {/* Clean unboxed metadata */}
                   <div className="flex items-center gap-2 text-[11px] font-sans text-[#78716C] uppercase tracking-wider mb-2">
@@ -85,13 +92,18 @@ export const TrendingSection: React.FC<TrendingSectionProps> = ({
                     </span>
                   </div>
 
-                  {/* Article Title */}
-                  <h3
-                    onClick={() => onSelectArticle(item.id)}
-                    className="font-serif text-xl sm:text-[1.35rem] leading-[1.25] text-[#111010] group-hover:text-[#6B1724] transition-colors cursor-pointer mb-3"
+                  {/* Article Title (Opens in New Tab) */}
+                  <a
+                    href={articleUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block group/link"
+                    title={`Open “${item.title}” in a new tab`}
                   >
-                    {item.title}
-                  </h3>
+                    <h3 className="font-serif text-xl sm:text-[1.35rem] leading-[1.25] text-[#111010] group-hover/link:text-[#6B1724] transition-colors mb-3">
+                      {item.title}
+                    </h3>
+                  </a>
 
                   {/* Short Description */}
                   <p className="font-sans text-xs sm:text-sm text-[#5A5550] line-clamp-2 leading-relaxed mb-6">
@@ -99,18 +111,20 @@ export const TrendingSection: React.FC<TrendingSectionProps> = ({
                   </p>
                 </div>
 
-                {/* Footer read link */}
+                {/* Footer read link (Opens in New Tab) */}
                 <div className="pt-3 border-t border-[#ECE5DA] flex items-center justify-between">
                   <span className="text-[11px] text-[#78716C] font-sans">
                     By {item.author.name}
                   </span>
-                  <button
-                    onClick={() => onSelectArticle(item.id)}
+                  <a
+                    href={articleUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-[11px] tracking-[0.14em] uppercase font-sans font-medium text-[#111010] group-hover:text-[#6B1724] transition-colors"
                   >
                     <span>Read More</span>
                     <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </button>
+                  </a>
                 </div>
               </article>
             );

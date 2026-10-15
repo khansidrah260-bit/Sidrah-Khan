@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight, Bookmark, Clock, Share2 } from 'lucide-react';
 import { Article } from '../data/articles';
+import { getRouteUrl } from '../utils/routes';
 
 interface HeroSectionProps {
   article: Article;
@@ -12,11 +13,12 @@ interface HeroSectionProps {
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
   article,
-  onSelectArticle,
   isBookmarked,
   onToggleBookmark,
   onShare,
 }) => {
+  const articleUrl = getRouteUrl(article.slug, true);
+
   return (
     <section className="relative border-b border-[#E6DFD5] bg-[#F9F6F0] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-8 py-8 lg:py-14">
@@ -45,9 +47,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               {article.category} · {article.subcategory}
             </div>
 
-            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl xl:text-[3.4rem] font-normal leading-[1.08] text-[#111010] tracking-tight mb-5 text-balance">
-              {article.title}
-            </h1>
+            <a
+              href={articleUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block"
+              title={`Read ${article.title} in a new tab`}
+            >
+              <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl xl:text-[3.4rem] font-normal leading-[1.08] text-[#111010] group-hover:text-[#6B1724] transition-colors tracking-tight mb-5 text-balance">
+                {article.title}
+              </h1>
+            </a>
 
             <p className="font-sans text-base sm:text-lg text-[#524D48] leading-relaxed mb-8 max-w-xl">
               {article.deck}
@@ -91,23 +101,28 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               </div>
             </div>
 
-            {/* Primary Action Button */}
+            {/* Primary Action Button (Opens in New Tab) */}
             <div>
-              <button
-                onClick={() => onSelectArticle(article.id)}
+              <a
+                href={articleUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group inline-flex items-center gap-3 px-7 py-3.5 bg-[#111010] text-[#FDFBF7] text-xs font-sans tracking-[0.18em] font-medium uppercase hover:bg-[#6B1724] transition-all duration-300 shadow-sm"
               >
                 <span>READ THE STORY</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </a>
             </div>
           </div>
 
           {/* Cinematic Image Column (7 Cols) */}
           <div className="lg:col-span-7 order-1 lg:order-2">
-            <div
-              onClick={() => onSelectArticle(article.id)}
-              className="group cursor-pointer relative overflow-hidden bg-[#E8E1D5] shadow-lg border border-[#DDD4C6]"
+            <a
+              href={articleUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block relative overflow-hidden bg-[#E8E1D5] shadow-lg border border-[#DDD4C6]"
+              title={`Read ${article.title} in a new tab`}
             >
               <div className="aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden">
                 <img
@@ -124,10 +139,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   {article.imageCaption || 'Photograph: Paris Autumn/Winter Collections'}
                 </span>
                 <span className="tracking-widest uppercase text-[10px] text-[#6B1724] font-medium shrink-0">
-                  EDITORIAL EXCLUSIVE
+                  EDITORIAL EXCLUSIVE ↗
                 </span>
               </div>
-            </div>
+            </a>
           </div>
         </div>
       </div>
